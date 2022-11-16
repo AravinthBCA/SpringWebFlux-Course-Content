@@ -17,17 +17,20 @@ import javax.persistence.UniqueConstraint;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table(name =  "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Table(name =  "user_table")
 @Data
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 public class User {
 	
 	@Id
-	@GeneratedValue(strategy =  GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="ID")
 	private Long id;
 	
 	@Column(name = "first_name")
@@ -51,7 +54,7 @@ public class User {
 				            name = "role_id", referencedColumnName = "id"))
 	
 	private Collection<Role> roles;
-		
+	
 	public User(String firstName, String lastName, String email, String password, Collection<Role> roles) {
 		super();
 		this.firstName = firstName;
@@ -60,4 +63,5 @@ public class User {
 		this.password = password;
 		this.roles = roles;
 	}
+	
 }

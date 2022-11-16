@@ -61,6 +61,7 @@ public class StudentController {
     }
 	
 	@PostMapping(path="/saveStudent")
+	@Operation(summary="Save Student",description="Save Student")
 	public ModelAndView saveStudent(@ModelAttribute("student")Student student) {
 		System.out.println(student.toString());
 		studentService.saveStudent(student);

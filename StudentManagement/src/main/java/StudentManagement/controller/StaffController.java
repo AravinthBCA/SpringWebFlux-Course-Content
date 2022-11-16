@@ -32,7 +32,7 @@ public class StaffController {
 	
 	@PostMapping(path="/saveStaff")
 	public ModelAndView saveStaff(@ModelAttribute("staff")Staff staff) {
-		staff.setJoiningDate(LocalDate.now());
+//		staff.setJoiningDate(LocalDate.now());
 		staffService.saveStaff(staff);
 		ModelAndView mav = new ModelAndView("index");
 	    return mav;

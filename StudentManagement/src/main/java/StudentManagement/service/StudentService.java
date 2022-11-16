@@ -19,6 +19,7 @@ public class StudentService {
 	}
 	
 	public Student saveStudent(Student student) {
+		System.out.println("saveStudent method invoked...");
 		return studentRepo.save(student);
 	}
 	

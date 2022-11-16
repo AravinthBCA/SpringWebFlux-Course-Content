@@ -18,12 +18,9 @@ import StudentManagement.service.UserService;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-	@Autowired
-	private UserService userService;
 	
 	@Autowired
-	private MyAuthenticationProvider authenticationProvider;
+	private UserService userService;
 	
 	@Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -37,15 +34,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.setPasswordEncoder(passwordEncoder());
         return auth;
     }
+	
+	@Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider());
+    }
 		
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
 		return authConfig.getAuthenticationManager();
-	}
-
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(authenticationProvider);
 	}
 
 	@Override
@@ -66,6 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.clearAuthentication(true)
 		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 		.logoutSuccessUrl("/login?logout")
-		.permitAll();
+		.permitAll()
+		.and().csrf().disable();
 	}
 }
