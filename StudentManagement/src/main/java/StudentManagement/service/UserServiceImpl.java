@@ -29,9 +29,11 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public User save(UserRegistrationDto registrationDto) {
-		User user = new User(registrationDto.getFirstName(), 
-				registrationDto.getLastName(), registrationDto.getEmail(),
-				passwordEncoder.encode(registrationDto.getPassword()), Arrays.asList(new Role("ROLE_ADMIN")));
+//		if(registrationDto.getPassword().equals(registrationDto.getConfirmPassword())) {
+//			
+//		}
+		User user = new User(registrationDto.getEmail(),passwordEncoder.encode(registrationDto.getPassword()), 
+								Arrays.asList(new Role("ROLE_ADMIN")));
 		
 		return userRepository.save(user);
 	}
@@ -39,8 +41,10 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		List<User> userList = userRepository.findAll();
+		System.out.println("Logs ----> Login Username : "+username);
 		User user = null;
 		for(User i : userList) {
+			System.out.println("Logs ----> Database Username : "+i.getEmail());
 			if(i.getEmail().equals(username)) {
 				user = i;
 				break;

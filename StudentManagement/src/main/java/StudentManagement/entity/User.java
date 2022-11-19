@@ -33,12 +33,6 @@ public class User {
 	@Column(name="ID")
 	private Long id;
 	
-	@Column(name = "first_name")
-	public String firstName;
-	
-	@Column(name = "last_name")
-	private String lastName;
-	
 	@Column(name="email")
 	private String email;
 	
@@ -55,10 +49,8 @@ public class User {
 	
 	private Collection<Role> roles;
 	
-	public User(String firstName, String lastName, String email, String password, Collection<Role> roles) {
+	public User(String email, String password, Collection<Role> roles) {
 		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
 		this.roles = roles;
